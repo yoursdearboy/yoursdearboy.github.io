@@ -3,7 +3,6 @@ title: "A blog using Pandoc"
 author: "Kirill Voronin"
 date: "2023-08-07"
 categories: []
-toc: true
 ---
 
 To write a series of posts on data management (coming soon) I was thinking of a simple static blog.
