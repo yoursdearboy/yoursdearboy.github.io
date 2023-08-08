@@ -3,13 +3,22 @@ title: Data Management
 bibliography: references.bib
 —
 
-include([user.html])
+```{ojs}
+const user = (name, pic, story) => html`
+  <div class="">
+    <h4>${name}</h4>
+    <img src="${pic}" />
+    ${story}
+  </div>`
+```
 
 # Users
 
 ## The Data Administrator (DA)
 
-user(„Doc“, „bugs-bunny.png“)
+```ojs
+user("Doc", "bugs-bunny.png")
+```
 
 We‘ve seen projects with no DA or where DA don’t spend necessary time. In these projects parties add their data sylo to a shared database. Usually, not a surprise, it ends up blaming each other on writing incorrect data or even worse - silently pushing more silo with a honking sound.
 
