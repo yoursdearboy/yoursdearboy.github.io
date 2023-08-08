@@ -1,1 +1,1 @@
-Sitemap: https://yoursdearboy.github.io/sitemap.xml
+Sitemap: https://github.com/yoursdearboy/yoursdearboy.github.io/sitemap.xml
