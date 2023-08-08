@@ -1,0 +1,87 @@
+—
+title: Database 1
+bibliography: references.bib
+—
+
+## Introduction
+
+::: {.alert .alert-warning}
+#### Disclaimer
+
+The approach and the software described in this paper is mainly based on our experience of biostatistics dept. of Fed. Research Center. See [@data-management] to get more context and see how our approach fits in general research data management.
+
+<!— In another circumstances and with another resources available at hand you might have better fit with another approach. Though we try to generalize it and make useful outside of our organization as much as possible. —>
+:::
+
+## User (Who?)
+
+Narrow target user.
+
+## Problem (What?)
+
+## Wheb
+
+## Approach
+
+DB is to DBA, we gonna work with it.
+
+We don’t force a DBA into a specific data structure, but give em flexibility. A DBA has better knowledge of tradeoffs, which make the whole database, data management and querying simpler. Also we don’t need to make these groundbreaking decisions ourselves and chain us with them.
+
+Of course it doesn’t come for free, but with a cost of requiring a database developer to write and work with queries and write some code to glue provided components with a custom database. But it is a cost we **would like** to pay, partly because our engineers have a great experience working with a code.
+
+R and RStudio example, though remark why we have choosen dev containers (road diverge sign).
+
+HTML because we just want to display it, though remark why we have choosen JSX. (road diverge sign).
+
+No client state (managed by database developer), only by software developer, because threading and managing state is hard. [2]
+
+Static analysis.
+  
+Static typing for developers, type inference for users.  
+  
+It makes building software a lego game (is it something good? probably yes, in our case).  
+  
+Clojure.spec is another approach, which states tooling in its rationale paper, yet we don’t see it (namely static code analysis, because or users are particularly bad at writing and **executing** code), for example in clj-kondo wich is commonly used linter, though LISPs are perfect languages for tooling due to ease of parsing, see LighTable. (road diverge sign).  
+
+::: {#refs}
+:::
+
+## Borrowed
+
+2.  [@riffle]
+
+Backend first
+
+> We think one promising pattern is a [local-first architecture](https://www.inkandswitch.com/local-first/) where all data is stored locally on the client, available to be freely edited at any time, and synchronized across clients whenever a network is available.
+
+То же самое, только backend-first, потому что, нам нужна централизация и бэкграунд таски.
+
+Database centric
+
+> In this sense, our approach is reminiscent of tools like [Datascript](https://github.com/tonsky/datascript) and [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) which expose a query interface over in-memory data structures.
+
+Вот это круто, но не уверен, что хорошая идея в базе хранить стейт пользователей.
+
+> См. первый запрос
+
+Они ставят лейблы как Олег и Миша, через JOIN.
+
+> Structured queries make it easier to understand an app
+> The Riffle model produces a highly structured app. Each component contains:
+> * local relational **state**
+> * reactive **queries** that transform data
+> * a **view template** for rendering DOM nodes and registering event handlers
+
+> In some sense, the view template is also a “query”: it’s a pure function of the data returned by the queries, and its expressed in a declarative, rather than imperative style! So, we can view the queries and template together as a large, tree-structured view of the data—the sources are the base tables, the sinks are the DOM templates, and the two are connected by a tree of queries. All dependencies are known by the system at runtime.
+> The pervasive use of relational queries seems to be a better fit for debugging data-intensive programs, although we feel that we’ve only scratched the surface of the problem.
+> Another challenge was fitting compound UI state like nested objects or sequences into the relational model. For now, we’ve addressed this challenge by serializing this kind of state into a single scalar value within the relational database. However, this approach feels haphazard, and it seems important to find more ergonomic relational patterns for storing common kinds of UI state.
+
+Это не решается, если только само дерево например в JSON не сохранить.
+
+> SQL is a mediocre language for UI development
+
+Да, согласен по каждому пункту.
+
+> While we tried to stick to well-known technologies like SQL in our prototype, we are excited about the potential of newer relational languages like [Imp](https://github.com/jamii/imp/tree/v1) and Datalog.
+
+А у нас, как пользователей R, хороший экспириенс относительно ФП языка для этого.	

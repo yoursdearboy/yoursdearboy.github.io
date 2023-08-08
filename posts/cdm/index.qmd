@@ -1,0 +1,41 @@
+—
+title: Data Management
+bibliography: references.bib
+—
+
+include([user.html])
+
+# Users
+
+## The Data Administrator (DA)
+
+user(„Doc“, „bugs-bunny.png“)
+
+We‘ve seen projects with no DA or where DA don’t spend necessary time. In these projects parties add their data sylo to a shared database. Usually, not a surprise, it ends up blaming each other on writing incorrect data or even worse - silently pushing more silo with a honking sound.
+
+The concept of Data Administrator described in [@date2003] - it is a person responsible for data consistency. In clinical trial she will call up for a board.
+
+As any other project data management one must have a person with complete vision [@brooks1975]
+
+🙏 In any clinical trial this vision is scribed in clinical trial protocol. You need one, at least very primitive, but please - get one. Just dump your thoughts and better try to structure it according to this and you will be blessed.
+
+## The DBA
+
+Олег
+Антон
+
+Техническая реализация [@date2003].
+
+## The Statistician
+
+Паша
+
+## The Developer
+
+Миша
+
+# Database Types
+
+## Single User Database
+
+Excel or SQLite.
