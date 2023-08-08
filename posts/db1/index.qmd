@@ -1,17 +1,18 @@
-—
+---
 title: Database 1
+author: Kirill Voronin
+date: 2023-08-08
 bibliography: references.bib
-—
+---
+
+
+## Disclaimer
+
+The approach and the software described in this paper is mainly based on our experience of biostatistics dept. of Fed. Research Center. See [@cdm] to get more context and see how our approach fits in general clinical data management.
+
+<!-- In another circumstances and with another resources available at hand you might have better fit with another approach. Though we try to generalize it and make useful outside of our organization as much as possible. -->
 
 ## Introduction
-
-::: {.alert .alert-warning}
-#### Disclaimer
-
-The approach and the software described in this paper is mainly based on our experience of biostatistics dept. of Fed. Research Center. See [@data-management] to get more context and see how our approach fits in general research data management.
-
-<!— In another circumstances and with another resources available at hand you might have better fit with another approach. Though we try to generalize it and make useful outside of our organization as much as possible. —>
-:::
 
 ## User (Who?)
 
@@ -42,9 +43,6 @@ Static typing for developers, type inference for users.
 It makes building software a lego game (is it something good? probably yes, in our case).  
   
 Clojure.spec is another approach, which states tooling in its rationale paper, yet we don’t see it (namely static code analysis, because or users are particularly bad at writing and **executing** code), for example in clj-kondo wich is commonly used linter, though LISPs are perfect languages for tooling due to ease of parsing, see LighTable. (road diverge sign).  
-
-::: {#refs}
-:::
 
 ## Borrowed
 

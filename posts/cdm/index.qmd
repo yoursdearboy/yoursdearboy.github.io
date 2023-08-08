@@ -1,14 +1,22 @@
-—
+---
 title: Data Management
+author: Kirill Voronin
+date: 2023-08-08
 bibliography: references.bib
-—
+execute:
+  echo: false
+---
+
+<!-- FIXME: That's not Clinical Data Management, but clinical research / trial data management  -->
 
 ```{ojs}
-const user = (name, pic, story) => html`
-  <div class="">
-    <h4>${name}</h4>
-    <img src="${pic}" />
-    ${story}
+user = (name, pic, story) => html`
+  <div class="alert alert-light d-flex">
+    <img class="border border-2 border-dark rounded-circle" width="120px" height="120px" src="${pic}" />
+    <div class="flex-row ms-3">
+      <h4 class="alert-heading mt-0">${name}</h4>
+      ${story}
+    </div>
   </div>`
 ```
 
@@ -16,8 +24,12 @@ const user = (name, pic, story) => html`
 
 ## The Data Administrator (DA)
 
-```ojs
-user("Doc", "bugs-bunny.png")
+![](iris.png){style="display: none"}
+
+```{ojs}
+user("Iris", "iris.png", md`
+  Works good.
+`)
 ```
 
 We‘ve seen projects with no DA or where DA don’t spend necessary time. In these projects parties add their data sylo to a shared database. Usually, not a surprise, it ends up blaming each other on writing incorrect data or even worse - silently pushing more silo with a honking sound.
@@ -29,6 +41,14 @@ As any other project data management one must have a person with complete vision
 🙏 In any clinical trial this vision is scribed in clinical trial protocol. You need one, at least very primitive, but please - get one. Just dump your thoughts and better try to structure it according to this and you will be blessed.
 
 ## The DBA
+
+![](helgi.png){style="display: none"}
+
+```{ojs}
+user("Helgi", "helgi.png", md`
+  Works good.
+`)
+```
 
 Олег
 Антон
