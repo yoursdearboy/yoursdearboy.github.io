@@ -1,0 +1,44 @@
+[
+  {
+    "objectID": "posts/pandoc/index.html",
+    "href": "posts/pandoc/index.html",
+    "title": "A blog using Pandoc",
+    "section": "",
+    "text": "To write a series of posts on data management (coming soon) I was thinking of a simple static blog. The first thought was to use Pandoc to convert Markdown text I already had to web pages. Let’s see how well it works."
+  },
+  {
+    "objectID": "posts/pandoc/index.html#pandoc",
+    "href": "posts/pandoc/index.html#pandoc",
+    "title": "A blog using Pandoc",
+    "section": "Pandoc",
+    "text": "Pandoc\nIf you don’t haven Pandoc installed, then download a binary for your operating system. Or use the script below (change the URL).\nPANDOC_DOWNLOAD_URL=https://github.com/jgm/pandoc/releases/download/3.1.6.1/pandoc-3.1.6.1-linux-amd64.tar.gz\n\ncurl -s -L $PANDOC_DOWNLOAD_URL | tar -xz --strip 2 --wildcards \"*/bin/pandoc\"\nNow we can convert our post to the web page.\n./pandoc --standalone hello-world.md &gt; hello-world.html"
+  },
+  {
+    "objectID": "posts/pandoc/index.html#page-template",
+    "href": "posts/pandoc/index.html#page-template",
+    "title": "A blog using Pandoc",
+    "section": "Page template",
+    "text": "Page template\nNext we will create template.html with Bootstrap support.\n&lt;!doctype html&gt;\n&lt;html lang=\"en\"&gt;\n  &lt;head&gt;\n    &lt;meta charset=\"utf-8\"&gt;\n    &lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"&gt;\n    &lt;title&gt;$title$&lt;/title&gt;\n    &lt;style&gt;\n      $if(highlighting-css)$\n      $highlighting-css$\n      $endif$\n      $if(csl-css)$\n      $styles.citations.html()$\n      $endif$\n    &lt;/style&gt;\n    &lt;link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9\" crossorigin=\"anonymous\"&gt;\n  &lt;/head&gt;\n  &lt;body&gt;\n    &lt;div class=\"container\"&gt;\n      &lt;h1&gt;$title$&lt;/h1&gt;\n      $if(toc)$\n      &lt;h2&gt;Table of Contents&lt;/h2&gt;\n      $toc$\n      $endif$\n      $body$\n      $if(refs)$\n      &lt;h2&gt;References&lt;/h2&gt;\n      $refs$\n      $endif$\n    &lt;/div&gt;\n  &lt;/body&gt;\n&lt;/html&gt;\nI use toc and refs variables for Table of Contents and References sections, they will be described later.\nRebuild the web page with flags --template and --toc. The second one generates table of contents we used in template.\n./pandoc --standalone --template template.html --toc hello-world.md &gt; hello-world.html"
+  },
+  {
+    "objectID": "posts/pandoc/index.html#references",
+    "href": "posts/pandoc/index.html#references",
+    "title": "A blog using Pandoc",
+    "section": "References",
+    "text": "References\nPandoc supports references in a text and generates references list based on them. We already added it to the template, though need another file to display.\nPut next content in metadata.yml\nrefs: |\n  ::: {#refs}\n  :::\nNow we need a bibliography file for the post, for example take this one and save to hello-world.bib\n@misc{pandoc-blog,\n    title = {A blog using Pandoc},\n    howpublished = {\\url{https://yoursdearboy.github.io/pandoc}},\n    note = {[Accessed 08-08-2023]},\n}\nSet up a bibliography in frontmatter of our post and put a reference in the text.\n---\ntitle: Hello World\nbibliography: hello-world.bib\n---\n\n# Hello World\n\n## Introduction\n\nLet's see how [@pandoc-blog] works.\n\n## Code\n\n```python\nimport hello\n\nhello.world()\n```\n\n## Conclusion\n\nPretty easy, huh?\nRebuild the web page with flags --metadata-file and --citeproc.\n./pandoc --standalone --template template.html --metadata-file metadata.yml --toc --citeproc hello-world.md &gt; hello-world.html"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Public",
+    "section": "",
+    "text": "A blog using Pandoc\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAug 7, 2023\n\n\nKirill Voronin\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Kirill Voronin\n🏥 🤖 ⚽️\nStats for health, IT and soccer."
+  }
+]
