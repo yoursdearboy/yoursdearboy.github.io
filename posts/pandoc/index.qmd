@@ -243,3 +243,5 @@ Here's what we've got.
 Note how it's easy to modify the markup and styles, extend our pipeline.
 
 ![](demo.png)
+
+If you need more robust solution give [Quarto](quarto.org) a try.
