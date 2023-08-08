@@ -15,3 +15,7 @@
         padding-bottom: 1rem;
     }
 }
+
+#title-block-header.quarto-title-block.default .quarto-title-meta {
+    display: none;
+}
