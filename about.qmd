@@ -6,7 +6,7 @@ about:
   links:
     - icon: twitter
       text: Twitter
-      href: https://twitter.com/yoursdearboy
+      href: https://twitter.com/prlunestia
     - icon: github
       text: Github
       href: https://github.com/yoursdearboy
