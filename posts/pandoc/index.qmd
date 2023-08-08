@@ -3,13 +3,14 @@ title: "A blog using Pandoc"
 author: "Kirill Voronin"
 date: "2023-08-07"
 categories: []
+toc: true
 ---
 
 To write a series of posts on data management (coming soon) I was thinking of a simple static blog.
 The first thought was to use [Pandoc](https://pandoc.org) to convert Markdown text I already had to web pages.
 Let's see how well it works.
 
-# Setup
+## Setup
 
 Create a directory `blog` with a post `hello-world.md`
 
@@ -126,7 +127,7 @@ Now we need a bibliography file for the post, for example take this one and save
 ```bib
 @misc{pandoc-blog,
     title = {A blog using Pandoc},
-    howpublished = {\url{https://yoursdearboy.github.io/pandoc}},
+    howpublished = {\url{https://yoursdearboy.github.io/posts/pandoc/}},
     note = {[Accessed 08-08-2023]},
 }
 ```
