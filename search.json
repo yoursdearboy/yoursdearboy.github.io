@@ -7,6 +7,13 @@
     "text": "To write a series of posts on data management (coming soon) I was thinking of a simple static blog. The first thought was to use Pandoc to convert Markdown text I already had to web pages. Let’s see how well it works."
   },
   {
+    "objectID": "posts/pandoc/index.html#setup",
+    "href": "posts/pandoc/index.html#setup",
+    "title": "A blog using Pandoc",
+    "section": "Setup",
+    "text": "Setup\nCreate a directory blog with a post hello-world.md\nmkdir blog && cd blog\n---\ntitle: Hello World\n---\n\n# Hello World\n\n## Introduction\n\nLet's see how it works.\n\n## Code\n\n```python\nimport hello\n\nhello.world()\n```\n\n## Conclusion\n\nPretty easy, huh?\nOne thing besides Markdown here is frontmatter - a YAML config between --- lines in front of content."
+  },
+  {
     "objectID": "posts/pandoc/index.html#pandoc",
     "href": "posts/pandoc/index.html#pandoc",
     "title": "A blog using Pandoc",
@@ -25,7 +32,7 @@
     "href": "posts/pandoc/index.html#references",
     "title": "A blog using Pandoc",
     "section": "References",
-    "text": "References\nPandoc supports references in a text and generates references list based on them. We already added it to the template, though need another file to display.\nPut next content in metadata.yml\nrefs: |\n  ::: {#refs}\n  :::\nNow we need a bibliography file for the post, for example take this one and save to hello-world.bib\n@misc{pandoc-blog,\n    title = {A blog using Pandoc},\n    howpublished = {\\url{https://yoursdearboy.github.io/pandoc}},\n    note = {[Accessed 08-08-2023]},\n}\nSet up a bibliography in frontmatter of our post and put a reference in the text.\n---\ntitle: Hello World\nbibliography: hello-world.bib\n---\n\n# Hello World\n\n## Introduction\n\nLet's see how [@pandoc-blog] works.\n\n## Code\n\n```python\nimport hello\n\nhello.world()\n```\n\n## Conclusion\n\nPretty easy, huh?\nRebuild the web page with flags --metadata-file and --citeproc.\n./pandoc --standalone --template template.html --metadata-file metadata.yml --toc --citeproc hello-world.md &gt; hello-world.html"
+    "text": "References\nPandoc supports references in a text and generates references list based on them. We already added it to the template, though need another file to display.\nPut next content in metadata.yml\nrefs: |\n  ::: {#refs}\n  :::\nNow we need a bibliography file for the post, for example take this one and save to hello-world.bib\n@misc{pandoc-blog,\n    title = {A blog using Pandoc},\n    howpublished = {\\url{https://yoursdearboy.github.io/posts/pandoc/}},\n    note = {[Accessed 08-08-2023]},\n}\nSet up a bibliography in frontmatter of our post and put a reference in the text.\n---\ntitle: Hello World\nbibliography: hello-world.bib\n---\n\n# Hello World\n\n## Introduction\n\nLet's see how [@pandoc-blog] works.\n\n## Code\n\n```python\nimport hello\n\nhello.world()\n```\n\n## Conclusion\n\nPretty easy, huh?\nRebuild the web page with flags --metadata-file and --citeproc.\n./pandoc --standalone --template template.html --metadata-file metadata.yml --toc --citeproc hello-world.md &gt; hello-world.html"
   },
   {
     "objectID": "index.html",
