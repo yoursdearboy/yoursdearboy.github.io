@@ -1,0 +1,244 @@
+---
+title: "A blog using Pandoc"
+author: "Kirill Voronin"
+date: "2023-08-07"
+categories: []
+---
+
+To write a series of posts on data management (coming soon) I was thinking of a simple static blog.
+The first thought was to use [Pandoc](https://pandoc.org) to convert Markdown text I already had to web pages.
+Let's see how well it works.
+
+# Setup
+
+Create a directory `blog` with a post `hello-world.md`
+
+```sh
+mkdir blog && cd blog
+```
+
+````md
+---
+title: Hello World
+---
+
+# Hello World
+
+## Introduction
+
+Let's see how it works.
+
+## Code
+
+```python
+import hello
+
+hello.world()
+```
+
+## Conclusion
+
+Pretty easy, huh?
+````
+
+One thing besides Markdown here is **frontmatter** - a YAML config between `---` lines in front of content.
+
+## Pandoc
+
+If you don't haven Pandoc installed,
+then [download a binary](https://github.com/jgm/pandoc/releases/) for your operating system.
+Or use the script below (change the URL).
+
+```sh
+PANDOC_DOWNLOAD_URL=https://github.com/jgm/pandoc/releases/download/3.1.6.1/pandoc-3.1.6.1-linux-amd64.tar.gz
+
+curl -s -L $PANDOC_DOWNLOAD_URL | tar -xz --strip 2 --wildcards "*/bin/pandoc"
+```
+
+Now we can convert our post to the web page.
+
+```sh
+./pandoc --standalone hello-world.md > hello-world.html
+```
+
+## Page template
+
+Next we will create `template.html` with Bootstrap support.
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>$title$</title>
+    <style>
+      $if(highlighting-css)$
+      $highlighting-css$
+      $endif$
+      $if(csl-css)$
+      $styles.citations.html()$
+      $endif$
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="container">
+      <h1>$title$</h1>
+      $if(toc)$
+      <h2>Table of Contents</h2>
+      $toc$
+      $endif$
+      $body$
+      $if(refs)$
+      <h2>References</h2>
+      $refs$
+      $endif$
+    </div>
+  </body>
+</html>
+```
+
+I use `toc` and `refs` variables for Table of Contents and References sections, they will be described later.
+
+Rebuild the web page with flags `--template` and `--toc`.
+The second one generates table of contents we used in template.
+
+```sh
+./pandoc --standalone --template template.html --toc hello-world.md > hello-world.html
+```
+
+## References
+
+Pandoc supports references in a text and generates references list based on them.
+We already added it to the template, though need another file to display.
+
+Put next content in `metadata.yml`
+
+```yml
+refs: |
+  ::: {#refs}
+  :::
+```
+
+Now we need a bibliography file for the post, for example take this one and save to `hello-world.bib`
+
+```bib
+@misc{pandoc-blog,
+    title = {A blog using Pandoc},
+    howpublished = {\url{https://yoursdearboy.github.io/pandoc}},
+    note = {[Accessed 08-08-2023]},
+}
+```
+
+Set up a bibliography in frontmatter of our post and put a reference in the text.
+
+````md
+---
+title: Hello World
+bibliography: hello-world.bib
+---
+
+# Hello World
+
+## Introduction
+
+Let's see how [@pandoc-blog] works.
+
+## Code
+
+```python
+import hello
+
+hello.world()
+```
+
+## Conclusion
+
+Pretty easy, huh?
+````
+
+Rebuild the web page with flags `--metadata-file` and `--citeproc`.
+
+```sh
+./pandoc --standalone --template template.html --metadata-file metadata.yml --toc --citeproc hello-world.md > hello-world.html
+```
+
+# Build configuration
+
+The build command is long enough to put options in config, let's call it `defaults.yml`
+
+```yml
+standalone: true
+template: template.html
+metadata-file: metadata.yml
+toc: true
+citeproc: true
+```
+
+Now we can run `./pandoc --defaults defaults.yml hellow-world.md > hello-world.html`
+
+# Content templates
+
+Pandoc doesn't have built-in templating.
+But thanks to the shell we can pipe our content through another tool such as
+[GNU m4](https://www.gnu.org/software/m4/) or [gpp](https://math.berkeley.edu/~auroux/software/gpp.html) or [mustache](https://mustache.github.io).
+
+Let's create `_alert` macro in file `init.m4` to display Bootstrap's alert.
+
+```m4
+divert(-1)
+
+changequote(`[', `]')
+
+define([_alert], [<div class="alert alert-$3">
+  <h4>$1</h4>
+  $2
+</div>])
+
+divert(1)dnl
+```
+
+And add an alert to our post.
+
+````md
+---
+title: Hello World
+bibliography: hello-world.bib
+---
+
+# Hello World
+
+_alert(
+    It is sexy,
+    Multiline string
+    **with** formatting,
+    succes
+)
+
+## Introduction
+
+Let's see how [@pandoc-blog] works.
+
+## Code
+
+```python
+import hello
+
+hello.world()
+```
+
+## Conclusion
+
+Pretty easy, huh?
+````
+
+Rebuild `m4 init.m4 hello-world.md | ./pandoc --defaults defaults.yml > hello-world.html`
+
+# Conclusion
+
+Here's what we've got.
+
+Note how it's easy to modify the markup and styles, extend our pipeline.
+
+![](demo.png)
