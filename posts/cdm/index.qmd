@@ -7,7 +7,8 @@ execute:
   echo: false
 ---
 
-<!-- FIXME: That's not Clinical Data Management, but clinical research / trial data management  -->
+<!-- FIXME: That's not Clinical Data Management, but clinical research / trial data management. -->
+<!—- Or it is Electronic Data Capture -->
 
 ```{ojs}
 user = (name, pic, story) => html`
@@ -32,6 +33,14 @@ user("Iris", "iris.png", md`
 `)
 ```
 
+Калинина, Папуша, Горонкова.
+Не совсем Хорева, Лили Альбертовна.
+
+An experienced in the field clinician.
+Designated by authority or a head herself.
+She is in contact with every party engaged most of the time.
+Had enough timr to tinker with the db.
+
 We‘ve seen projects with no DA or where DA don’t spend necessary time. In these projects parties add their data sylo to a shared database. Usually, not a surprise, it ends up blaming each other on writing incorrect data or even worse - silently pushing more silo with a honking sound.
 
 The concept of Data Administrator described in [@date2003] - it is a person responsible for data consistency. In clinical trial she will call up for a board.
@@ -50,18 +59,35 @@ user("Helgi", "helgi.png", md`
 `)
 ```
 
+A man from the room with a server.
+Not that chatty, except on matter. You don’t reach him with a problem of data management at hand, cause it takes time to think about the schema, the data source and process.
+
 Олег
 Антон
 
 Техническая реализация [@date2003].
 
+This dude create data reports, cause he knows internal database structure. What stored in wich field and how to combine it. Though semantic is better known to data administrator which he consults.
+
 ## The Statistician
 
 Паша
 
+Cares about data relevant to hypothesis testing. Though can benifit from different points of view.
+
+A lot of benefit in that the data structured in highly organized (lol) way according to the protocol.
+
 ## The Developer
 
 Миша
+
+Implements database in software.
+
+## Data Entry team
+
+## Laboratory
+
+## Foreign sites
 
 # Database Types
 

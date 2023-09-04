@@ -5,7 +5,6 @@ date: 2023-08-08
 bibliography: references.bib
 ---
 
-
 ## Disclaimer
 
 The approach and the software described in this paper is mainly based on our experience of biostatistics dept. of Fed. Research Center. See [@cdm] to get more context and see how our approach fits in general clinical data management.
@@ -18,25 +17,70 @@ The approach and the software described in this paper is mainly based on our exp
 
 Narrow target user.
 
+Our user is Helgi, Antony and maybe Pablo.
+
 ## Problem (What?)
 
-## Wheb
+## When?
+
+## Where?
+
+Not pharma.
 
 ## Approach
 
-DB is to DBA, we gonna work with it.
+### DB is to DBA, we gonna work with it.
 
 We don’t force a DBA into a specific data structure, but give em flexibility. A DBA has better knowledge of tradeoffs, which make the whole database, data management and querying simpler. Also we don’t need to make these groundbreaking decisions ourselves and chain us with them.
 
 Of course it doesn’t come for free, but with a cost of requiring a database developer to write and work with queries and write some code to glue provided components with a custom database. But it is a cost we **would like** to pay, partly because our engineers have a great experience working with a code.
 
+### Integrated environment
+
 R and RStudio example, though remark why we have choosen dev containers (road diverge sign).
+
+### HTML
 
 HTML because we just want to display it, though remark why we have choosen JSX. (road diverge sign).
 
 No client state (managed by database developer), only by software developer, because threading and managing state is hard. [2]
 
-Static analysis.
+### Functional programming
+
+We prefer functional programming because of it’s composeable and declarative style [@rmonads]. Compare first and second [@rmonads] snippets.
+
+Missing side-effects and explicit data handling makes functions easier to understand and test, they are simple.
+
+Our end goal is highly configurable application for any kind of database. Obviously it requires not plain text configuration but programming, yet that’s not we would like to dive in deep. Functions are those simple building block which allow us to compose our applications. They are much simple than classes and OOP.
+
+In JavaScript programmers mostly use Lodash or it’s counterpart lodash/fp or RamdaJS, which goes much further with functional programming [@thinking-in-ramda]. This raises a question on programming style we use.
+
+### Code linearization, point-free programming and pipes
+
+When we heavily rely on functions we usually end up with a lot of calls of small functions which return and pass each other themselves. Those calls frequently are heavily nested which makes them hard to ready. See [tc39/pipes] for examples.
+
+To get readability back we have multiple techniques of code linearization. All of them are useful and not any one must become an absolute.
+
+Lodash uses *method chaining*. It‘s very popular in JavaScript. D3 also uses it heavily, other popular libraries like jQuery and Zod does this too. As much as popular it is limited in extension.
+
+RamdaJS pushes functional programming to it’s extent with currying [@why-curry-helps] and functional composition to achieve what‘s called *point-free or tacit programming*. Though it feels alien in JS world [@does-curry-help] and hard for most programmers [@pointless], partially because of data-last arguments in function signatures, this is another technique in our toolbox.
+
+In R we are accustomed to what is called pipe [@r4ds-pipes] or threading macro in Clojure. There is a proposal for *pipe* in JS [tc39/pipes] [tc39/pipes-206] which keeps data-first regular arguments.
+
+Actually both of this techniques are sort of *partial function application*, which can be achieved in different ways [currying-in-js]. Notably:
+
+- using arrow functions
+- using partial
+- using bind
+- special syntax? probably not soon, as pipes
+
+After all, we can just use *intermediate variables*. Though for small portions of code it is too wordy and makes things harder to read. Also, as we know naming is hard [@twohardthings]. On the other hand, giving something a name can increase readability. In general it’s better to avoid mutable variables.
+
+Our goal is to make code easily [@simplemadeeasy] composeable and readable. All tools are good, though we tend to method chaining as it‘s common one and true functional composition with partial application and pipes, but not point-free style.
+
+We suggest to conform to tidyverse code style for pipes when to use each technique [@r4ds-pipes].
+ 
+### Static analysis.
   
 Static typing for developers, type inference for users.  
   
