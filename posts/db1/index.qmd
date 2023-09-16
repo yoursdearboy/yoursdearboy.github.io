@@ -62,6 +62,14 @@ When we heavily rely on functions we usually end up with a lot of calls of small
 To get readability back we have multiple techniques of code linearization. All of them are useful and not any one must become an absolute.
 
 Lodash uses *method chaining*. It‘s very popular in JavaScript. D3 also uses it heavily, other popular libraries like jQuery and Zod does this too. As much as popular it is limited in extension.
+For example, see next Knex code `knex().connection(con).select("*").from("table")`. What if we want to predefine conenction?
+
+```js
+const con;
+const knexc = (...args) => knex(...args).connection(con);
+knexc().select("*").from("tableA")
+knexc().select("*").from("tableB") # nop, still tableA, because it's mutable QueryBuilder object :(
+```
 
 RamdaJS pushes functional programming to it’s extent with currying [@why-curry-helps] and functional composition to achieve what‘s called *point-free or tacit programming*. Though it feels alien in JS world [@does-curry-help] and hard for most programmers [@pointless], partially because of data-last arguments in function signatures, this is another technique in our toolbox.
 
@@ -126,4 +134,25 @@ Database centric
 
 > While we tried to stick to well-known technologies like SQL in our prototype, we are excited about the potential of newer relational languages like [Imp](https://github.com/jamii/imp/tree/v1) and Datalog.
 
-А у нас, как пользователей R, хороший экспириенс относительно ФП языка для этого.	
+А у нас, как пользователей R, хороший экспириенс относительно ФП языка для этого.
+
+# Dataflow
+
+https://github.com/hyperfiddle/electric
+> Electric Clojure implements a form of arrowized continuous time dataflow programming with extensions for network-transparent function composition.
+> references
+
+# Framework
+
+Biff is a good example.
+[Growing a framework](https://jacobobryant.com/p/post-2019-grow/)
+[Growing a language]()
+
+# IoC
+
+[Martin Fowler IoC](https://martinfowler.com/bliki/InversionOfControl.html)
+> Inversion of Control is a key part of what makes a framework different to a library.
+> A framework embodies some abstract design, with more behavior built in. In order to use it you need to insert your behavior into various places in the framework either by subclassing or by plugging in your own classes.
+
+But important:
+> There is some confusion these days over the meaning of inversion of control due to the rise of IoC containers; some people confuse the general principle here with the specific styles of inversion of control (such as dependency injection) that these containers use.
